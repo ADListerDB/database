@@ -1,3 +1,4 @@
+-- DROP DATABASE IF EXISTS adlister_db;
 CREATE DATABASE IF NOT EXISTS adlister_db;
 USE adlister_db;
 
@@ -33,8 +34,17 @@ WHERE id
     WHERE id = ads_id
 );
 
+# For a given ad, what category, or categories, does it belong to?
 SELECT category, COUNT(category)
 FROM ads
 GROUP BY category;
+
+-- For a given category, show all the ads that are in that category.
+SELECT category, COUNT(category)
+FROM ads
+GROUP BY category;
+
+
+
 
 
