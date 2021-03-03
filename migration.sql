@@ -1,4 +1,4 @@
--- DROP DATABASE IF EXISTS adlister_db;
+DROP DATABASE IF EXISTS adlister_db;
 CREATE DATABASE IF NOT EXISTS adlister_db;
 USE adlister_db;
 
@@ -18,49 +18,62 @@ CREATE TABLE users
 CREATE TABLE ads
 (
     id          INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    user_id      INT UNSIGNED NOT NULL,
+    user_id     INT UNSIGNED NOT NULL,
     title       VARCHAR(200) NOT NULL,
     description TEXT         NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES users (id)
 );
 
+
 CREATE TABLE category
 (
-    id     INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name   VARCHAR(200) NOT NULL,
+    id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(200) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES ads (id)
 );
-# query number 1
+# For a given ad, what is the email address of the user that created it?
 SELECT *
 FROM users
-WHERE id
-  AND email IN (
+WHERE id IN (
     SELECT id
     FROM ads
-    WHERE id = user_id
+    WHERE title = 'Car for sale'
 );
 
 # For a given ad, what category, or categories, does it belong to?
-SELECT name, COUNT(name)
+SELECT name AS Category
 FROM category
-GROUP BY name;
-
-# For a given category, show all the ads that are in that category.
-SELECT title, description
-FROM ads
 WHERE id IN (
     SELECT id
+    FROM ads
+    WHERE title = 'Handyman for hire'
+);
+
+# For a given category, show all the ads that are in that category.
+SELECT title AS Ads
+FROM ads
+WHERE ID IN (
+    SELECT ID
     FROM category
-    WHERE id = id
-) GROUP BY title;
+    WHERE name = 'Maintenance'
+);
 
 # For a given user, show all the ads they have posted.
+SELECT username AS User
+FROM users
+Where id IN (
+    SELECT id
+    FROM ads
+    WHERE id = 1
+);
+
 SELECT *
-FROM ads
-WHERE id = user_id;
-
-
+FROM ads;
+SELECT *
+FROM users;
+SELECT *
+FROM category;
 
 
