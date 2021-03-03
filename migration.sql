@@ -26,9 +26,6 @@ CREATE TABLE ads
 );
 
 
-
-
-
 CREATE TABLE category
 (
     id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -37,23 +34,21 @@ CREATE TABLE category
     FOREIGN KEY (id) REFERENCES ads (id)
 );
 # For a given ad, what is the email address of the user that created it?
-SELECT username, email
+SELECT *
 FROM users
-WHERE id
-  AND email IN (
+WHERE id IN (
     SELECT id
     FROM ads
-    WHERE id = user_id
+    WHERE title = 'Car for sale'
 );
 
 # For a given ad, what category, or categories, does it belong to?
 SELECT name AS Category
 FROM category
-WHERE id
-  AND name IN (
+WHERE id IN (
     SELECT id
     FROM ads
-    WHERE title = 4
+    WHERE title = 'Handyman for hire'
 );
 
 # For a given category, show all the ads that are in that category.
@@ -62,7 +57,7 @@ FROM ads
 WHERE ID IN (
     SELECT ID
     FROM category
-    WHERE name = id
+    WHERE name = 'Maintenance'
 );
 
 # For a given user, show all the ads they have posted.
@@ -74,8 +69,11 @@ Where id IN (
     WHERE id = 1
 );
 
-SELECT * FROM ads;
-SELECT * FROM users;
-SELECT * FROM category;
+SELECT *
+FROM ads;
+SELECT *
+FROM users;
+SELECT *
+FROM category;
 
 
