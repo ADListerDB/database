@@ -4,6 +4,7 @@ USE adlister_db;
 
 DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS category;
 
 CREATE TABLE users
 (
@@ -20,11 +21,18 @@ CREATE TABLE ads
     user_id      INT UNSIGNED NOT NULL,
     title       VARCHAR(200) NOT NULL,
     description TEXT         NOT NULL,
-    category VARCHAR(200) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (id) REFERENCES users (id)
 );
 
+CREATE TABLE category
+(
+    id     INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name   VARCHAR(200) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES ads (id)
+);
+# query number 1
 SELECT *
 FROM users
 WHERE id
@@ -35,14 +43,18 @@ WHERE id
 );
 
 # For a given ad, what category, or categories, does it belong to?
-SELECT category, COUNT(category)
-FROM ads
-GROUP BY category;
+SELECT name, COUNT(name)
+FROM category
+GROUP BY name;
 
 # For a given category, show all the ads that are in that category.
-SELECT category
+SELECT title, description
 FROM ads
-GROUP BY category;
+WHERE id IN (
+    SELECT id
+    FROM category
+    WHERE id = id
+) GROUP BY title;
 
 # For a given user, show all the ads they have posted.
 SELECT *
