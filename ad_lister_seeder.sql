@@ -23,6 +23,6 @@ VALUES ('Services'),
        ('Maintenance'),
        ('Free Items'),
        ('Auto Sales'),
-       ('Pest Control')
+       ('Pest Control');
 
 
