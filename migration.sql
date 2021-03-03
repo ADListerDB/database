@@ -26,7 +26,7 @@ CREATE TABLE ads
 );
 
 
-CREATE TABLE category
+CREATE TABLE categories
 (
     id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(200) NOT NULL,
@@ -44,7 +44,7 @@ WHERE id IN (
 
 # For a given ad, what category, or categories, does it belong to?
 SELECT name AS Category
-FROM category
+FROM categories
 WHERE id IN (
     SELECT id
     FROM ads
@@ -56,7 +56,7 @@ SELECT title AS Ads
 FROM ads
 WHERE ID IN (
     SELECT ID
-    FROM category
+    FROM categories
     WHERE name = 'Maintenance'
 );
 
@@ -74,6 +74,6 @@ FROM ads;
 SELECT *
 FROM users;
 SELECT *
-FROM category;
+FROM categories;
 
 
